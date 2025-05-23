@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/categories/index.html</loc>
+    <loc>https://blog.meo39.com/categories/index.html</loc>
     
     <lastmod>2025-05-22</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/index.html</loc>
+    <loc>https://blog.meo39.com/tags/index.html</loc>
     
     <lastmod>2025-05-22</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2025/05/22/unityLearn2/</loc>
+    <loc>https://blog.meo39.com/2025/05/22/unityLearn2/</loc>
     
     <lastmod>2025-05-22</lastmod>
     
@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2025/05/21/unityLearn1/</loc>
+    <loc>https://blog.meo39.com/2025/05/21/unityLearn1/</loc>
     
     <lastmod>2025-05-22</lastmod>
     
@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/about/index.html</loc>
+    <loc>https://blog.meo39.com/about/index.html</loc>
     
     <lastmod>2025-05-21</lastmod>
     
@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2025/05/21/hello-world/</loc>
+    <loc>https://blog.meo39.com/2025/05/21/hello-world/</loc>
     
     <lastmod>2025-03-21</lastmod>
     
@@ -57,7 +57,7 @@
   
 
   <url>
-    <loc>http://example.com/</loc>
+    <loc>https://blog.meo39.com/</loc>
     <lastmod>2025-05-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -65,14 +65,14 @@
 
   
   <url>
-    <loc>http://example.com/tags/Unity/</loc>
+    <loc>https://blog.meo39.com/tags/Unity/</loc>
     <lastmod>2025-05-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/C/</loc>
+    <loc>https://blog.meo39.com/tags/C/</loc>
     <lastmod>2025-05-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

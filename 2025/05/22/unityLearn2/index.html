@@ -9,7 +9,7 @@
     <meta name="description" content="​	本文是《Unity3D高级编程: 主程手记》的读书笔记（后面统一简称主程手记），主程手记是一本很全面的Unity进阶的书记，值得所有Unity开发都买一本读一读。博主这里将一些自己经常用得上的内容重新做了遍归纳总结，做成读书笔记也方便自己查阅。 1. List和Dictionary的优化方式​	List本质就是数组，Dictionary的本质是两个数组，一个数组报错索引，一个数组保存数据。 ​">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式">
-<meta property="og:url" content="http://example.com/2025/05/22/unityLearn2/index.html">
+<meta property="og:url" content="https://blog.meo39.com/2025/05/22/unityLearn2/index.html">
 <meta property="og:site_name" content="DayDayAsobi">
 <meta property="og:description" content="​	本文是《Unity3D高级编程: 主程手记》的读书笔记（后面统一简称主程手记），主程手记是一本很全面的Unity进阶的书记，值得所有Unity开发都买一本读一读。博主这里将一些自己经常用得上的内容重新做了遍归纳总结，做成读书笔记也方便自己查阅。 1. List和Dictionary的优化方式​	List本质就是数组，Dictionary的本质是两个数组，一个数组报错索引，一个数组保存数据。 ​">
 <meta property="og:locale" content="zh_CN">
@@ -91,17 +91,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/05/22/unityLearn2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/05/22/unityLearn2/&text=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/05/22/unityLearn2/&is_video=false&description=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式&body=Check out this article: http://example.com/2025/05/22/unityLearn2/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/05/22/unityLearn2/&name=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/05/22/unityLearn2/&t=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.meo39.com/2025/05/22/unityLearn2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.meo39.com/2025/05/22/unityLearn2/&text=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.meo39.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.meo39.com/2025/05/22/unityLearn2/&is_video=false&description=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式&body=Check out this article: https://blog.meo39.com/2025/05/22/unityLearn2/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.meo39.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.meo39.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.meo39.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.meo39.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.meo39.com/2025/05/22/unityLearn2/&name=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.meo39.com/2025/05/22/unityLearn2/&t=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -206,17 +206,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/05/22/unityLearn2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/05/22/unityLearn2/&text=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/05/22/unityLearn2/&is_video=false&description=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式&body=Check out this article: http://example.com/2025/05/22/unityLearn2/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/05/22/unityLearn2/&name=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/05/22/unityLearn2/&t=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.meo39.com/2025/05/22/unityLearn2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.meo39.com/2025/05/22/unityLearn2/&text=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.meo39.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.meo39.com/2025/05/22/unityLearn2/&is_video=false&description=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式&body=Check out this article: https://blog.meo39.com/2025/05/22/unityLearn2/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.meo39.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.meo39.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.meo39.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.meo39.com/2025/05/22/unityLearn2/&title=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.meo39.com/2025/05/22/unityLearn2/&name=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.meo39.com/2025/05/22/unityLearn2/&t=【读书笔记】《Unity3D高级编程: 主程手记》02：常用的优化方式"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
