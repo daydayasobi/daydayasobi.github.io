@@ -14,7 +14,7 @@
 <meta property="og:description" content="1. 前言​	在博主接触TEngine框架之前，最先看到的是GameFramewrok框架（后面简称GF框架），不得不说，GF的代码写的堪称优雅，每次去看源码都有新的收获。但是呢GF框架也存在两个问题，一个是教程太少，官方文档手册本来就是六脉残卷了，民间的个人教程质量也是参差不齐，时至今日能找到的有用教程也不多。还有一个问题是GF框架原工程已经没有在维护了，有一些功能有点过时了，可以用更好的插件代">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-27T09:37:54.000Z">
-<meta property="article:modified_time" content="2025-05-27T12:43:03.372Z">
+<meta property="article:modified_time" content="2025-06-10T07:43:00.844Z">
 <meta property="article:tag" content="Unity">
 <meta property="article:tag" content="TEngine">
 <meta name="twitter:card" content="summary">
@@ -104,7 +104,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">1. 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8F%92%E4%BB%B6%E5%92%8C%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.</span> <span class="toc-text">2. 相关的插件和项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="toc-number">3.</span> <span class="toc-text">3.版本信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%95%99%E7%A8%8B%E9%93%BE%E6%8E%A5"><span class="toc-number">4.</span> <span class="toc-text">4. 教程链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%A1%A5%E5%85%85%E8%AF%B4%E6%98%8E"><span class="toc-number">5.</span> <span class="toc-text">5. 补充说明</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">1. 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8F%92%E4%BB%B6%E5%92%8C%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.</span> <span class="toc-text">2. 相关的插件和项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="toc-number">3.</span> <span class="toc-text">3. 版本信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%95%99%E7%A8%8B%E9%93%BE%E6%8E%A5"><span class="toc-number">4.</span> <span class="toc-text">4. 教程链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%A1%A5%E5%85%85%E8%AF%B4%E6%98%8E"><span class="toc-number">5.</span> <span class="toc-text">5. 补充说明</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -130,7 +130,7 @@
       
         <time datetime="2025-05-27T09:37:54.000Z" itemprop="datePublished">2025-05-27</time>
         
-        (Updated: <time datetime="2025-05-27T12:43:03.372Z" itemprop="dateModified">2025-05-27</time>)
+        (Updated: <time datetime="2025-06-10T07:43:00.844Z" itemprop="dateModified">2025-06-10</time>)
         
       
     </div>
@@ -156,7 +156,7 @@
 <p>TEngine是一个简单(新手友好开箱即用)且强大的Unity框架全平台解决方案,对于需要一套上手快、文档清晰、高性能且可拓展性极强的商业级解决方案的开发者或者团队来说是一个很好的选择。</p>
 </blockquote>
 <p>​	让我自己评价TE的话，TE充分利用了GF框架的高可扩展性，重构后更加的高内聚低耦合。并且引入了很多久经考验的商业级插件，能够轻松实现<strong>商业化热更、商业化资源管理、商业化UI</strong>开发。如果你已经非常熟悉Luban、YooAsset等插件，那么这一切只需要下载工程开箱即用，真正如作者所说*“5分钟即可上手整套开发流程”<em>。不仅如此，在这些基础上还有着*<em>官方文档清晰（你别管文档全不全，就说清晰不清晰吧）、bug修复迅速、社区活跃的优势</em></em>，总之是一款值得去研究和使用的Unity框架。</p>
-<p>​	话说回来，其实TE框架的demo分支里已经包含了很完善的一个打飞机Demo，但是本着学习的心态，博主打算效仿花桑大佬，复刻一个基于TE框架的塔防Demo，同时记录一下自己在使用TE框架心得和遇到的坑，希望能给后来人一些经验和启发。</p>
+<p>​	话说回来，其实TE框架的demo分支里已经包含了很完善的一个打飞机Demo，博主这里本着学习的心态，想要效仿花桑大佬，复刻一个基于TE框架的塔防Demo，同时记录一下自己在使用TE框架心得和遇到的坑，希望能给后来人一些经验和启发。</p>
 <h2 id="2-相关的插件和项目"><a href="#2-相关的插件和项目" class="headerlink" title="2. 相关的插件和项目"></a>2. 相关的插件和项目</h2><ul>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/EllanJiang/GameFramework">GameFramework</a>: Game Framework 是一个基于 Unity 引擎的游戏框架，主要对游戏开发过程中常用模块进行了封装，很大程度地规范开发过程、加快开发速度并保证产品质量。</p>
 </li>
@@ -173,14 +173,15 @@
 <li><p><a target="_blank" rel="noopener" href="https://github.com/focus-creative-games/luban">Luban</a>: luban是一个强大、易用、优雅、稳定的游戏配置解决方案。它设计目标为满足从小型到超大型游戏项目的简单到复杂的游戏配置工作流需求。</p>
 </li>
 </ul>
-<h2 id="3-版本信息"><a href="#3-版本信息" class="headerlink" title="3.版本信息"></a>3.版本信息</h2><ul>
+<h2 id="3-版本信息"><a href="#3-版本信息" class="headerlink" title="3. 版本信息"></a>3. 版本信息</h2><ul>
 <li>Unity版本：待补充</li>
 <li>TEngine版本：待补充</li>
 <li>YooAsset版本：待补充</li>
 <li>HybridCLR版本：待补充</li>
 </ul>
 <h2 id="4-教程链接"><a href="#4-教程链接" class="headerlink" title="4. 教程链接"></a>4. 教程链接</h2><p>​	<a href="/2025/05/27/TEngineLeanQA/" title="TEngine框架学习 问题记录">TEngine问题记录</a></p>
-<p>​	<a href="/2025/05/23/lubanLean1/" title="【Unity】Luban配置表方案基本使用教学">测试</a></p>
+<p>​	<a href="/2025/06/09/lubanLean1/" title="【Unity】Luban配置教程和按文件加载优化">测试</a></p>
+<p>​	全局配置、Luban配置表、多语言、YooAsset资源管理、资源分配、资源分包、有限状态机、对象池、引用池、热更新、流程、UI、音效等。</p>
 <h2 id="5-补充说明"><a href="#5-补充说明" class="headerlink" title="5. 补充说明"></a>5. 补充说明</h2><p>​	TEngine官方QQ群：</p>
 <!-- flag of hidden posts -->
   </div>
@@ -207,7 +208,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">1. 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8F%92%E4%BB%B6%E5%92%8C%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.</span> <span class="toc-text">2. 相关的插件和项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="toc-number">3.</span> <span class="toc-text">3.版本信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%95%99%E7%A8%8B%E9%93%BE%E6%8E%A5"><span class="toc-number">4.</span> <span class="toc-text">4. 教程链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%A1%A5%E5%85%85%E8%AF%B4%E6%98%8E"><span class="toc-number">5.</span> <span class="toc-text">5. 补充说明</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">1. 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8F%92%E4%BB%B6%E5%92%8C%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.</span> <span class="toc-text">2. 相关的插件和项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="toc-number">3.</span> <span class="toc-text">3. 版本信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%95%99%E7%A8%8B%E9%93%BE%E6%8E%A5"><span class="toc-number">4.</span> <span class="toc-text">4. 教程链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%A1%A5%E5%85%85%E8%AF%B4%E6%98%8E"><span class="toc-number">5.</span> <span class="toc-text">5. 补充说明</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
