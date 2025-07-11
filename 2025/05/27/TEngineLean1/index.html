@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="1. 前言​	在博主接触TEngine框架之前，最先看到的是GameFramewrok框架（后面简称GF框架），不得不说，GF的代码写的堪称优雅，每次去看源码都有新的收获。但是呢GF框架也存在两个问题，一个是教程太少，官方文档手册本来就是六脉残卷了，民间的个人教程质量也是参差不齐，时至今日能找到的有用教程也不多。还有一个问题是GF框架原工程已经没有在维护了，有一些功能有点过时了，可以用更好的插件代">
+    <meta name="description" content="1. 前言​	在博主接触TEngine框架之前，最先了解到的是GameFramewrok框架（后面简称GF框架），不得不说，GF框架的代码写的堪称优雅，每次去看源码都有新的收获。但是呢GF框架也存在两个问题，一个是教程太少，官方文档手册本来就是六脉残卷了，民间的个人教程质量也是参差不齐，时至今日能找到的有用教程也不多。还有一个问题是GF框架原工程已经没有在维护了，有一些功能有点过时了。 ​	但是另">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TEngine框架学习（1）摘要">
 <meta property="og:url" content="https://blog.meo39.com/2025/05/27/TEngineLean1/index.html">
 <meta property="og:site_name" content="DayDayAsobi&#39;s Blog">
-<meta property="og:description" content="1. 前言​	在博主接触TEngine框架之前，最先看到的是GameFramewrok框架（后面简称GF框架），不得不说，GF的代码写的堪称优雅，每次去看源码都有新的收获。但是呢GF框架也存在两个问题，一个是教程太少，官方文档手册本来就是六脉残卷了，民间的个人教程质量也是参差不齐，时至今日能找到的有用教程也不多。还有一个问题是GF框架原工程已经没有在维护了，有一些功能有点过时了，可以用更好的插件代">
+<meta property="og:description" content="1. 前言​	在博主接触TEngine框架之前，最先了解到的是GameFramewrok框架（后面简称GF框架），不得不说，GF框架的代码写的堪称优雅，每次去看源码都有新的收获。但是呢GF框架也存在两个问题，一个是教程太少，官方文档手册本来就是六脉残卷了，民间的个人教程质量也是参差不齐，时至今日能找到的有用教程也不多。还有一个问题是GF框架原工程已经没有在维护了，有一些功能有点过时了。 ​	但是另">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-27T09:37:54.000Z">
-<meta property="article:modified_time" content="2025-06-10T07:43:00.844Z">
+<meta property="article:modified_time" content="2025-07-11T07:07:49.699Z">
 <meta property="article:tag" content="Unity">
 <meta property="article:tag" content="TEngine">
 <meta name="twitter:card" content="summary">
@@ -130,7 +130,7 @@
       
         <time datetime="2025-05-27T09:37:54.000Z" itemprop="datePublished">2025-05-27</time>
         
-        (Updated: <time datetime="2025-06-10T07:43:00.844Z" itemprop="dateModified">2025-06-10</time>)
+        (Updated: <time datetime="2025-07-11T07:07:49.699Z" itemprop="dateModified">2025-07-11</time>)
         
       
     </div>
@@ -150,21 +150,21 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>​	在博主接触TEngine框架之前，最先看到的是GameFramewrok框架（后面简称GF框架），不得不说，GF的代码写的堪称优雅，每次去看源码都有新的收获。但是呢GF框架也存在两个问题，一个是教程太少，官方文档手册本来就是六脉残卷了，民间的个人教程质量也是参差不齐，时至今日能找到的有用教程也不多。还有一个问题是GF框架原工程已经没有在维护了，有一些功能有点过时了，可以用更好的插件代替。</p>
-<p>​	但是另一方面，GF框架有着非常好功能架构，有很多大佬在GF框架的基础上进行了优化和重构，引入了很多优秀的插件，比如YooAsset和HybridCLR等等。这些框架中也就包括这个文章的主题<strong>TEngine框架（后面简称TE）</strong>，下文是TE的简介。</p>
+    <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>​	在博主接触TEngine框架之前，最先了解到的是GameFramewrok框架（后面简称GF框架），不得不说，GF框架的代码写的堪称优雅，每次去看源码都有新的收获。但是呢GF框架也存在两个问题，一个是教程太少，官方文档手册本来就是六脉残卷了，民间的个人教程质量也是参差不齐，时至今日能找到的有用教程也不多。还有一个问题是GF框架原工程已经没有在维护了，有一些功能有点过时了。</p>
+<p>​	但是另一方面，GF框架有着非常好功能架构，有很多大佬在GF框架的基础上进行了优化和重构，引入了很多优秀的插件，比如YooAsset和HybridCLR等等。这些框架中也就包括这个文章的主题<strong>TEngine框架（后面简称TE框架）</strong>，下文是TE框架官方的简介。</p>
 <blockquote>
 <p>TEngine是一个简单(新手友好开箱即用)且强大的Unity框架全平台解决方案,对于需要一套上手快、文档清晰、高性能且可拓展性极强的商业级解决方案的开发者或者团队来说是一个很好的选择。</p>
 </blockquote>
-<p>​	让我自己评价TE的话，TE充分利用了GF框架的高可扩展性，重构后更加的高内聚低耦合。并且引入了很多久经考验的商业级插件，能够轻松实现<strong>商业化热更、商业化资源管理、商业化UI</strong>开发。如果你已经非常熟悉Luban、YooAsset等插件，那么这一切只需要下载工程开箱即用，真正如作者所说*“5分钟即可上手整套开发流程”<em>。不仅如此，在这些基础上还有着*<em>官方文档清晰（你别管文档全不全，就说清晰不清晰吧）、bug修复迅速、社区活跃的优势</em></em>，总之是一款值得去研究和使用的Unity框架。</p>
+<p>​	让我自己评价TE的话，TE框架代码清晰整洁、可扩展性极强、全平台跑通，是非常理想的个人开发框架。并且引入了一些久经考验的商业级插件，能够轻松实现<strong>商业化热更、商业化资源管理、商业化UI</strong>开发。如果你已经非常熟悉Luban、YooAsset、HybridCLR等插件，那么这一切只需要下载工程开箱即用，真正如作者所说*“5分钟即可上手整套开发流程”<em>。不仅如此，在这些基础上还有着*<em>官方文档清晰（你别管文档全不全，就说清晰不清晰吧）、bug修复迅速、社区活跃的优势</em></em>，总之是一款值得去研究和使用的Unity框架。</p>
 <p>​	话说回来，其实TE框架的demo分支里已经包含了很完善的一个打飞机Demo，博主这里本着学习的心态，想要效仿花桑大佬，复刻一个基于TE框架的塔防Demo，同时记录一下自己在使用TE框架心得和遇到的坑，希望能给后来人一些经验和启发。</p>
 <h2 id="2-相关的插件和项目"><a href="#2-相关的插件和项目" class="headerlink" title="2. 相关的插件和项目"></a>2. 相关的插件和项目</h2><ul>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/EllanJiang/GameFramework">GameFramework</a>: Game Framework 是一个基于 Unity 引擎的游戏框架，主要对游戏开发过程中常用模块进行了封装，很大程度地规范开发过程、加快开发速度并保证产品质量。</p>
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/Alex-Rachel/TEngine?tab=readme-ov-file">TEngine</a>: 前面已经介绍过了。</p>
 </li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/DrFlower/TowerDefense-GameFramework-Demo">TowerDefense-GameFramework-Demo</a>: 这是花桑大佬基于</p>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/DrFlower/TowerDefense-GameFramework-Demo">TowerDefense-GameFramework-Demo</a>: 这是花桑大佬基于基于GF框架和官方模板资源开源的塔防游戏。</p>
 </li>
-<li><p><a target="_blank" rel="noopener" href="https://assetstore.unity.com/packages/essentials/tutorial-projects/tower-defense-template-107692">Tower Defense Template</a>: 这是一款官方的塔防模板资源。</p>
+<li><p><a target="_blank" rel="noopener" href="https://assetstore.unity.com/packages/essentials/tutorial-projects/tower-defense-template-107692">Tower Defense Template</a>: 这是一款官方的塔防模板资源，个人的示例工程中用的就是这里的资源。</p>
 </li>
 <li><p><a href="">YooAsset</a>: YooAsset是一套商业级经历百万DAU游戏验证的资源管理系统。</p>
 </li>
@@ -180,9 +180,19 @@
 <li>HybridCLR版本：待补充</li>
 </ul>
 <h2 id="4-教程链接"><a href="#4-教程链接" class="headerlink" title="4. 教程链接"></a>4. 教程链接</h2><p>​	<a href="/2025/05/27/TEngineLeanQA/" title="TEngine框架学习 问题记录">TEngine问题记录</a></p>
-<p>​	<a href="/2025/06/09/lubanLean1/" title="【Unity】Luban配置教程和按文件加载优化">测试</a></p>
+<p>​	<a href="/2025/06/09/lubanLean1/" title="【Unity】Luban配置教程和按文件加载优化">Luban配置教程和按文件加载优化</a></p>
+<p>​	<a href="/2025/07/11/TEngineLean2/" title="TEngine框架学习（2）流程与有限状态机">基于TEngine塔防Demo解析</a></p>
+<p>​	<a href="/2025/07/11/TEngineLean3/" title="TEngine框架学习（3）">有限状态机解析</a></p>
+<p>​	<a href="/2025/07/11/TEngineLean4/" title="TEngine框架学习（4）">流程模块解析</a></p>
+<p>​	<a href="/2025/07/11/TEngineLean5/" title="TEngine框架学习（5）">Yooasset与资源模块解析</a></p>
+<p>​	<a href="/2025/07/11/TEngineLean6/" title="TEngine框架学习（6）">UI模块解析</a></p>
+<p>​	<a href="/2025/07/11/TEngineLean7/" title="TEngine框架学习（7）">内存池模块解析</a></p>
+<p>​	<a href="/2025/07/11/TEngineLean8/" title="TEngine框架学习（8）">对象池模块解析</a></p>
+<p>​	<a href="/2025/07/11/TEngineLean9/" title="TEngine框架学习（9）">音效模块解析</a></p>
+<p>​	<a href="/2025/07/11/TEngineLean10/" title="TEngine框架学习（10）">多语言模块解析</a></p>
+<p>​	<a href="/2025/07/11/TEngineLean11/" title="TEngine框架学习（11）">自制模块：实体模块解析</a></p>
 <p>​	全局配置、Luban配置表、多语言、YooAsset资源管理、资源分配、资源分包、有限状态机、对象池、引用池、热更新、流程、UI、音效等。</p>
-<h2 id="5-补充说明"><a href="#5-补充说明" class="headerlink" title="5. 补充说明"></a>5. 补充说明</h2><p>​	TEngine官方QQ群：</p>
+<h2 id="5-补充说明"><a href="#5-补充说明" class="headerlink" title="5. 补充说明"></a>5. 补充说明</h2><p>​	TEngine官方QQ群：862987645</p>
 <!-- flag of hidden posts -->
   </div>
 </article>
