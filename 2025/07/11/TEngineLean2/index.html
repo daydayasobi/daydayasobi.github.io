@@ -6,16 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="article">
-<meta property="og:title" content="TEngine框架学习（2）流程与有限状态机">
+    <meta name="description" content="项目链接GitHub: 基于TEngine框架实现的塔防Demo 简介该项目是在TEngine框架的基础上，使用Unity开源资源，大量参考开源项目“基于Unity开源框架GameFramewrk实现的一款塔防游戏Demo”制作的一款塔防Demo。 TE框架是一款非常优秀的Unity开源框架，目前相关的文档还不够完善，Demo也比较少。所以本着学习TE框架的心态，效仿花桑大佬复刻了一个基于TE框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TEngine框架学习 基于TEngine框架实现的塔防Demo">
 <meta property="og:url" content="https://blog.meo39.com/2025/07/11/TEngineLean2/index.html">
 <meta property="og:site_name" content="DayDayAsobi&#39;s Blog">
+<meta property="og:description" content="项目链接GitHub: 基于TEngine框架实现的塔防Demo 简介该项目是在TEngine框架的基础上，使用Unity开源资源，大量参考开源项目“基于Unity开源框架GameFramewrk实现的一款塔防游戏Demo”制作的一款塔防Demo。 TE框架是一款非常优秀的Unity开源框架，目前相关的文档还不够完善，Demo也比较少。所以本着学习TE框架的心态，效仿花桑大佬复刻了一个基于TE框架">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blogimage01.oss-cn-chengdu.aliyuncs.com/img/202507181132652.png">
 <meta property="article:published_time" content="2025-07-11T06:24:54.000Z">
-<meta property="article:modified_time" content="2025-07-11T07:00:17.004Z">
+<meta property="article:modified_time" content="2025-07-18T08:23:30.210Z">
 <meta property="article:tag" content="Unity">
 <meta property="article:tag" content="TEngine">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blogimage01.oss-cn-chengdu.aliyuncs.com/img/202507181132652.png">
     
     
         
@@ -35,7 +39,7 @@
         
     
     <!-- title -->
-    <title>TEngine框架学习（2）流程与有限状态机</title><meta name="robots" content="noindex">
+    <title>TEngine框架学习 基于TEngine框架实现的塔防Demo</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -76,6 +80,8 @@
       <ul>
         
         
+        <li><a class="icon" href="/2025/06/09/lubanLean1/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
       </ul>
@@ -88,21 +94,21 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.meo39.com/2025/07/11/TEngineLean2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&text=TEngine框架学习（2）流程与有限状态机"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习（2）流程与有限状态机"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&is_video=false&description=TEngine框架学习（2）流程与有限状态机"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=TEngine框架学习（2）流程与有限状态机&body=Check out this article: https://blog.meo39.com/2025/07/11/TEngineLean2/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习（2）流程与有限状态机"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习（2）流程与有限状态机"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习（2）流程与有限状态机"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习（2）流程与有限状态机"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&name=TEngine框架学习（2）流程与有限状态机&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.meo39.com/2025/07/11/TEngineLean2/&t=TEngine框架学习（2）流程与有限状态机"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&text=TEngine框架学习 基于TEngine框架实现的塔防Demo"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习 基于TEngine框架实现的塔防Demo"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&is_video=false&description=TEngine框架学习 基于TEngine框架实现的塔防Demo"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TEngine框架学习 基于TEngine框架实现的塔防Demo&body=Check out this article: https://blog.meo39.com/2025/07/11/TEngineLean2/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习 基于TEngine框架实现的塔防Demo"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习 基于TEngine框架实现的塔防Demo"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习 基于TEngine框架实现的塔防Demo"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习 基于TEngine框架实现的塔防Demo"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&name=TEngine框架学习 基于TEngine框架实现的塔防Demo&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.meo39.com/2025/07/11/TEngineLean2/&t=TEngine框架学习 基于TEngine框架实现的塔防Demo"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     <div id="toc">
-      
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E9%93%BE%E6%8E%A5"><span class="toc-number">1.</span> <span class="toc-text">项目链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="toc-number">3.</span> <span class="toc-text">版本信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%86%85%E5%AE%B9"><span class="toc-number">4.</span> <span class="toc-text">项目内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="toc-number">4.1.</span> <span class="toc-text">文件结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">4.2.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%85%E5%AE%8C%E5%96%84%E7%9A%84%E5%9C%B0%E6%96%B9"><span class="toc-number">4.3.</span> <span class="toc-text">待完善的地方</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%BC%95%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">相关引用</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -114,7 +120,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        TEngine框架学习（2）流程与有限状态机
+        TEngine框架学习 基于TEngine框架实现的塔防Demo
     </h1>
 
 
@@ -128,7 +134,7 @@
       
         <time datetime="2025-07-11T06:24:54.000Z" itemprop="datePublished">2025-07-11</time>
         
-        (Updated: <time datetime="2025-07-11T07:00:17.004Z" itemprop="dateModified">2025-07-11</time>)
+        (Updated: <time datetime="2025-07-18T08:23:30.210Z" itemprop="dateModified">2025-07-18</time>)
         
       
     </div>
@@ -148,7 +154,42 @@
   
 
   <div class="content" itemprop="articleBody">
-    <!-- flag of hidden posts -->
+    <h2 id="项目链接"><a href="#项目链接" class="headerlink" title="项目链接"></a>项目链接</h2><p>GitHub: <a target="_blank" rel="noopener" href="https://github.com/DrFlower/TowerDefense-GameFramework-Demo">基于TEngine框架实现的塔防Demo</a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>该项目是在<a target="_blank" rel="noopener" href="https://github.com/Alex-Rachel/TEngine">TEngine框架</a>的基础上，使用Unity开源资源，大量参考开源项目“<a target="_blank" rel="noopener" href="https://github.com/DrFlower/TowerDefense-GameFramework-Demo">基于Unity开源框架GameFramewrk实现的一款塔防游戏Demo</a>”制作的一款塔防Demo。</p>
+<p>TE框架是一款非常优秀的Unity开源框架，目前相关的文档还不够完善，Demo也比较少。所以本着学习TE框架的心态，效仿花桑大佬复刻了一个基于TE框架的塔防Demo，同时记录一下自己在使用TE框架心得和遇到的坑，希望能给后来人一些经验和启发。</p>
+<h2 id="版本信息"><a href="#版本信息" class="headerlink" title="版本信息"></a>版本信息</h2><ul>
+<li><p>Unity: 2022.3.10f1</p>
+</li>
+<li><p>TEngine: 2025.5.20</p>
+</li>
+<li><p>YooAsset: 2.3.8</p>
+</li>
+<li><p>HybridCLR: 7.6.0</p>
+</li>
+<li><p>Tower Defense Template: 1.4.1</p>
+</li>
+</ul>
+<h2 id="项目内容"><a href="#项目内容" class="headerlink" title="项目内容"></a>项目内容</h2><p>本项目测试了了Windows打包运行和热更新，运用到了TE框架里大部分的模块，包括资源模块、事件模块、UI模块、流程模块、FSM模块、多语言模块、内存池和对象池模块。使用了Luban配置表工具、YooAsset打包工具和HybridCLR热更新工具。后续可能会根据该项目出一些TE框架的教程，到时候会一并贴出。</p>
+<h3 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h3><p></pre></p>
+<p>├─ AssetArt                    &#x2F;&#x2F; 美术产出物（非运行时直接引用）<br>│  └─ Atlas                    &#x2F;&#x2F; 图集原始文件（TexturePacker 等导出的 .tps &#x2F; .png）<br>├─ AssetRaw                    &#x2F;&#x2F; 原始资源（策划&#x2F;美术直接维护）<br>│  ├─ Actor                    &#x2F;&#x2F; 角色&#x2F;机关&#x2F;塔等实体的预制体<br>│  ├─ Audios                   &#x2F;&#x2F; 音频<br>│  ├─ Configs                  &#x2F;&#x2F; 策划配置<br>│  │  ├─ bytes                 &#x2F;&#x2F;   Luban生成的二进制表<br>│  │  └─ Localization          &#x2F;&#x2F;   I2 Localization 用的多语言CSV<br>│  ├─ DLL                      &#x2F;&#x2F; 第三方托管 DLL（LitJson、Luban.Runtime 等）<br>│  ├─ Effects                  &#x2F;&#x2F; 特效源文件（.prefab &#x2F; .fbx &#x2F; .shadergraph）<br>│  ├─ Fonts                    &#x2F;&#x2F; 字体<br>│  ├─ Materials                &#x2F;&#x2F; 材质球（sharedMaterial）<br>│  ├─ Res                      &#x2F;&#x2F; 运行时真正打进包体的资源（Animations、Models、Particles、Scenes…）<br>│  ├─ Scenes                   &#x2F;&#x2F; 主工程 Scenes（实际 Build 用）<br>│  ├─ Shaders                  &#x2F;&#x2F; 着色器源文件<br>│  ├─ UI                       &#x2F;&#x2F; UI Prefab（运行时动态加载）<br>│  └─ UIRaw                    &#x2F;&#x2F; UI 美术源文件（PSD、切图、未打图集）<br>├─ Editor                      &#x2F;&#x2F; 纯编辑器扩展脚本<br>├─ GameScripts                 &#x2F;&#x2F; 业务代码（热更 + 原生）<br>│  ├─ HotFix                  &#x2F;&#x2F; 游戏热更程序集目录<br>│  │  ├─ GameLogic            &#x2F;&#x2F;   游戏业务逻辑程序集<br>│  │  └─ GameProto            &#x2F;&#x2F;   游戏配置协议程序集<br>│  └─ Procedure               &#x2F;&#x2F;   原生程序集里的流程入口<br>├─ HybridCLRGenerate           &#x2F;&#x2F; HybridCLR 生成 Wrappers &amp; AOT dll 的临时目录<br>├─ Launcher                    &#x2F;&#x2F; 原生启动场景<br>├─ MobileDependencyResolver    &#x2F;&#x2F; Google Play Resolver 插件<br>├─ Scenes                      &#x2F;&#x2F; 真正 Build Settings 里挂的入口场景<br>├─ StreamingAssets             &#x2F;&#x2F; 随包体拷贝的只读资源<br>├─ TEngine                     &#x2F;&#x2F; TEngine 框架本体</p>
+<p></pre></p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p><img src="https://blogimage01.oss-cn-chengdu.aliyuncs.com/img/202507181132652.png" alt="image-20250718113248518"></p>
+<p>工程里已经包含了配置表和Luban的依赖，如上图所示点击<code>Gen_Bin-Custom.bat</code>即可生成配置文件和代码到工程中。</p>
+<h3 id="待完善的地方"><a href="#待完善的地方" class="headerlink" title="待完善的地方"></a>待完善的地方</h3><ul>
+<li>实体模块要更换，在写这个项目的时候TE框架还没有更新实体模块，所以照着GF框架自己添加了一个，仅供参考，后续会换成TE里的实体模块。</li>
+<li>存档模块需要完善，现在用的存档模块很简陋，后续会修改。</li>
+<li>内存池引用池运用存在问题，现在的用法比较除暴，对象池用的还是TE打飞机框架中的脚本，后续会优化一下。</li>
+<li>资源分包、按关卡下载的功能还没有实现，后续会添加。</li>
+<li>没有运用到服务器和网络功能，后续会考虑添加。</li>
+</ul>
+<h2 id="相关引用"><a href="#相关引用" class="headerlink" title="相关引用"></a>相关引用</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/DrFlower/TowerDefense-GameFramework-Demo">基于Unity开源框架GameFramewrk实现的一款塔防游戏Demo</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitee.com/tuzhong_w/tower-defense-tengine-demo">用te框架仿照gf的框架的重写</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Alex-Rachel/TEngine">TEngine框架</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/focus-creative-games/luban">Luban</a></li>
+<li><a href="https://blog.meo39.com/2025/06/09/lubanLean1/">Luban配置教程和按文件加载优化</a></li>
+</ul>
+
   </div>
 </article>
 
@@ -173,22 +214,22 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E9%93%BE%E6%8E%A5"><span class="toc-number">1.</span> <span class="toc-text">项目链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="toc-number">3.</span> <span class="toc-text">版本信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%86%85%E5%AE%B9"><span class="toc-number">4.</span> <span class="toc-text">项目内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="toc-number">4.1.</span> <span class="toc-text">文件结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">4.2.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%85%E5%AE%8C%E5%96%84%E7%9A%84%E5%9C%B0%E6%96%B9"><span class="toc-number">4.3.</span> <span class="toc-text">待完善的地方</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%BC%95%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">相关引用</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.meo39.com/2025/07/11/TEngineLean2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&text=TEngine框架学习（2）流程与有限状态机"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习（2）流程与有限状态机"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&is_video=false&description=TEngine框架学习（2）流程与有限状态机"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=TEngine框架学习（2）流程与有限状态机&body=Check out this article: https://blog.meo39.com/2025/07/11/TEngineLean2/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习（2）流程与有限状态机"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习（2）流程与有限状态机"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习（2）流程与有限状态机"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习（2）流程与有限状态机"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&name=TEngine框架学习（2）流程与有限状态机&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.meo39.com/2025/07/11/TEngineLean2/&t=TEngine框架学习（2）流程与有限状态机"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&text=TEngine框架学习 基于TEngine框架实现的塔防Demo"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习 基于TEngine框架实现的塔防Demo"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&is_video=false&description=TEngine框架学习 基于TEngine框架实现的塔防Demo"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TEngine框架学习 基于TEngine框架实现的塔防Demo&body=Check out this article: https://blog.meo39.com/2025/07/11/TEngineLean2/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习 基于TEngine框架实现的塔防Demo"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习 基于TEngine框架实现的塔防Demo"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习 基于TEngine框架实现的塔防Demo"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&title=TEngine框架学习 基于TEngine框架实现的塔防Demo"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.meo39.com/2025/07/11/TEngineLean2/&name=TEngine框架学习 基于TEngine框架实现的塔防Demo&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.meo39.com/2025/07/11/TEngineLean2/&t=TEngine框架学习 基于TEngine框架实现的塔防Demo"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
