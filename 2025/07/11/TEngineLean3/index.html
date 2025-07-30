@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.meo39.com/img/tengine.png">
 <meta property="article:published_time" content="2025-07-11T06:25:45.000Z">
-<meta property="article:modified_time" content="2025-07-30T07:07:36.866Z">
+<meta property="article:modified_time" content="2025-07-30T07:12:37.534Z">
 <meta property="article:author" content="daydayasobi">
 <meta property="article:tag" content="Unity">
 <meta property="article:tag" content="TEngine">
@@ -345,7 +345,7 @@
 <td>首包控制、按需下载、版本差异、运行时过滤</td>
 </tr>
 </tbody></table>
-<h2 id="需要修改的地方"><a href="#需要修改的地方" class="headerlink" title="需要修改的地方"></a>需要修改的地方</h2><h2 id="资源打包"><a href="#资源打包" class="headerlink" title="资源打包"></a>资源打包</h2><p><img src="https://blogimage01.oss-cn-chengdu.aliyuncs.com/img/202507301426310.png" srcset="/img/loading.gif" lazyload alt="测试资源"><img src="https://blogimage01.oss-cn-chengdu.aliyuncs.com/img/202507301443238.png" srcset="/img/loading.gif" lazyload alt="Build设置"></p>
+<h3 id="资源打包"><a href="#资源打包" class="headerlink" title="资源打包"></a>资源打包</h3><p><img src="https://blogimage01.oss-cn-chengdu.aliyuncs.com/img/202507301426310.png" srcset="/img/loading.gif" lazyload alt="测试资源"><img src="https://blogimage01.oss-cn-chengdu.aliyuncs.com/img/202507301443238.png" srcset="/img/loading.gif" lazyload alt="Build设置"></p>
 <p>图一是资源打标签，博主这里添加了三个场景，分别对应Tags，Level3 、4、5，也就是这次需要按需下载的资源，其余的资源全部为Base。</p>
 <p>图二是出包的设置，这里选择按标签复制，图上会把Base标签的资源打入StreamingAssets，外部输出的则是所有资源。我们直接将输出的文件丢到服务器上即可。</p>
 <h3 id="修改代码"><a href="#修改代码" class="headerlink" title="修改代码"></a>修改代码</h3><p>1、脚本<code>IResourceModule</code>中新重载创建下载器函数，第一个接口是默认的，第二个接口是我们新增的，<code>string[] tags</code>就是传入指定Tags的参数。</p>
