@@ -27,7 +27,7 @@
 <meta property="og:description" content="​	本文是《Unity3D高级编程: 主程手记》的读书笔记（后面统一简称主程手记），主程手记是一本很全面的Unity进阶的书记，值得所有Unity开发都买一本读一读。博主这里将一些自己经常用得上的内容重新做了遍归纳总结，做成读书笔记也方便自己查阅。 1. List的要点​	原书将List的源码逐个功能进行了分析，这里就不重复引用了，直接附上源码。List的要点如果用一句话总结那就是：List是由数">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-21T10:16:52.000Z">
-<meta property="article:modified_time" content="2025-05-22T07:22:02.325Z">
+<meta property="article:modified_time" content="2025-05-27T12:42:14.895Z">
 <meta property="article:tag" content="Unity">
 <meta property="article:tag" content="C#">
 <meta name="twitter:card" content="summary_large_image">
@@ -304,9 +304,9 @@
 <p>引用类型：常见的引用类型包括（<code>class</code>、<code>interface</code>、<code>array</code>、<code>delegate</code>）等，引用类型在堆（heap）上分配内存。当一个引用类型的变量赋值给另一个变量时，将复制内存地址的引用而不是值，所以两个变量指向同一个内存地址，修改一个变量会影响所有引用该数据的变量。</p>
 </blockquote>
 <p>​	装箱就是把值类型实列转换为引用类型，拆箱正好相反。下面用代码分别展示一下装箱和拆箱。</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">object</span> obj = a;  <span class="comment">// 装箱操作，a 的值被复制到堆上，obj 指向该堆内存地址</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">int</span> a = <span class="hljs-number">10</span>;<br><span class="hljs-built_in">object</span> obj = a;  <span class="hljs-comment">// 装箱操作，a 的值被复制到堆上，obj 指向该堆内存地址</span><br></code></pre></td></tr></table></figure>
 
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">object</span> obj = a; <span class="comment">// 装箱</span></span><br><span class="line"><span class="built_in">int</span> b = (<span class="built_in">int</span>)obj; <span class="comment">// 拆箱，将堆上的数据复制回值类型变量 b</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">int</span> a = <span class="hljs-number">10</span>;<br><span class="hljs-built_in">object</span> obj = a; <span class="hljs-comment">// 装箱</span><br><span class="hljs-built_in">int</span> b = (<span class="hljs-built_in">int</span>)obj; <span class="hljs-comment">// 拆箱，将堆上的数据复制回值类型变量 b</span><br></code></pre></td></tr></table></figure>
 
 <p>​	在Unity中一般只有当接口需要更加通用的时候才会需要装箱，比如一个接口参数为object，这样就支持传入任意类型。但是<strong>装箱、拆箱会消耗CPU产生内存碎片</strong>，原书中提到三种方法可以优化，分别是：</p>
 <ol>
@@ -418,6 +418,24 @@
   
     <article id="comments" lazyload>
       
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"Ov23liJNn88Oa4cCchJr","clientSecret":"bedf7ca410c6c42d4b51724427fb09dfa4ab6dce","repo":"daydayasobi.github.io","owner":"daydayasobi","admin":["daydayasobi"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: 'b848afb70c69d1fbfd2500fd1cf1df68'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
 
     </article>
   
