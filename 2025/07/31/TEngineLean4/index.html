@@ -19,16 +19,16 @@
   <meta name="author" content="daydayasobi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本文章都是建立在Winodws平台下测试的，其他平台是否同样适用还未进行验证。TE框架还在更新中，未来可能有较大变动。本教程的模块是借鉴GF框架自行添加的。                          TEngine: 2025.5.20             前言本篇文章中的实体模块都是根据GF模块自行封装进TE框架的，而且非常依赖框架中的对象池(IObject">
+    <meta name="description" content="本文章都是建立在Winodws平台下测试的，其他平台是否同样适用还未进行验证。TE框架还在更新中，未来可能有较大变动。                          TEngine: 2025.5.20             前言**本篇文章中的实体模块都是根据GF模块自行封装进TE框架的，原版TE框架暂时还没有实体模块！**本模块非常依赖框架中的对象池(IObje">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TEngine框架学习 实体(Entity)模块">
 <meta property="og:url" content="https://blog.meo39.com/2025/07/31/TEngineLean4/index.html">
 <meta property="og:site_name" content="DayDayAsobi&#39;s Blog">
-<meta property="og:description" content="本文章都是建立在Winodws平台下测试的，其他平台是否同样适用还未进行验证。TE框架还在更新中，未来可能有较大变动。本教程的模块是借鉴GF框架自行添加的。                          TEngine: 2025.5.20             前言本篇文章中的实体模块都是根据GF模块自行封装进TE框架的，而且非常依赖框架中的对象池(IObject">
+<meta property="og:description" content="本文章都是建立在Winodws平台下测试的，其他平台是否同样适用还未进行验证。TE框架还在更新中，未来可能有较大变动。                          TEngine: 2025.5.20             前言**本篇文章中的实体模块都是根据GF模块自行封装进TE框架的，原版TE框架暂时还没有实体模块！**本模块非常依赖框架中的对象池(IObje">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.meo39.com/img/tengine.png">
 <meta property="article:published_time" content="2025-07-31T03:48:06.000Z">
-<meta property="article:modified_time" content="2025-07-31T04:08:29.492Z">
+<meta property="article:modified_time" content="2025-07-31T04:14:02.500Z">
 <meta property="article:author" content="daydayasobi">
 <meta property="article:tag" content="Unity">
 <meta property="article:tag" content="TEngine">
@@ -285,14 +285,14 @@
               <div class="markdown-body">
                 
                 <div class="note note-warning">
-            <p>本文章都是建立在Winodws平台下测试的，其他平台是否同样适用还未进行验证。<br>TE框架还在更新中，未来可能有较大变动。<br>本教程的模块是借鉴GF框架自行添加的。</p>
+            <p>本文章都是建立在Winodws平台下测试的，其他平台是否同样适用还未进行验证。<br>TE框架还在更新中，未来可能有较大变动。</p>
           </div>
 
 <div class="note note-info">
             <p>TEngine: 2025.5.20</p>
           </div>
 
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本篇文章中的实体模块都是根据GF模块自行封装进TE框架的，而且非常依赖框架中的<code>对象池(IObjectPool)</code>、<code>应用池(PoolReference)</code> 模块。除此之外，本模块可能存在一些博主还未发现的Bug，欢迎指正。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>**本篇文章中的实体模块都是根据GF模块自行封装进TE框架的，原版TE框架暂时还没有实体模块！**本模块非常依赖框架中的<code>对象池(IObjectPool)</code>、<code>应用池(PoolReference)</code> 模块。另外，本模块可能存在一些博主还未发现的Bug，欢迎指正。</p>
 <p>所有的功能和代码的演示都是基于以下项目演示的，欢迎大家参考。<br>GitHub: <a target="_blank" rel="noopener" href="https://github.com/DrFlower/TowerDefense-GameFramework-Demo">基于TEngine框架实现的塔防Demo</a></p>
 <h2 id="实体模块介绍"><a href="#实体模块介绍" class="headerlink" title="实体模块介绍"></a>实体模块介绍</h2><p><strong>Entity（实体）模块</strong>是框架用来管理游戏场景中<strong>动态创建的所有物体</strong>（如角色、怪物、武器、特效等）的核心模块，它把这类对象抽象为“实体”，并提供了一套生命周期管理、分组、复用和挂接机制，让开发者可以高效、灵活地处理动态对象。博主个人的理解就是“<strong>实体模块就是强化后的对象池</strong>”。</p>
 <h3 id="模块脚本解析"><a href="#模块脚本解析" class="headerlink" title="模块脚本解析"></a>模块脚本解析</h3><p>下表是实体模块的四个基类的介绍，这些基类是作为<code>模块(Module)</code>添加进TE框架中的（再一次体现出TE框架的优秀，自定义模块添增减的非常便利，完美解耦）。</p>
