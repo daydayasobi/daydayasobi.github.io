@@ -146,13 +146,6 @@
 
   
   <url>
-    <loc>https://blog.meo39.com/tags/code/</loc>
-    <lastmod>2025-08-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.meo39.com/tags/Unity/</loc>
     <lastmod>2025-08-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -167,14 +160,21 @@
   </url>
   
   <url>
-    <loc>https://blog.meo39.com/tags/C/</loc>
+    <loc>https://blog.meo39.com/tags/YooAsset/</loc>
     <lastmod>2025-08-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.meo39.com/tags/YooAsset/</loc>
+    <loc>https://blog.meo39.com/tags/code/</loc>
+    <lastmod>2025-08-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.meo39.com/tags/C/</loc>
     <lastmod>2025-08-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
