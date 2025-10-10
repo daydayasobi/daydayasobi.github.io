@@ -1,0 +1,743 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="daydayasobi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文章都是建立在Winodws平台下测试的，其他平台是否同样适用还未进行验证。TE框架还在更新中，未来可能有较大变动。                          TEngine: 6.1.3             前言所有的功能和代码的演示都是基于以下项目演示的，欢迎大家参考。GitHub: 基于TEngine框架实现的塔防Demo 本文章的代码也参考了下面这篇">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TEngine框架学习 SQLite存档模块">
+<meta property="og:url" content="https://blog.meo39.com/2025/10/10/TEngineLean5/index.html">
+<meta property="og:site_name" content="DayDayAsobi&#39;s Blog">
+<meta property="og:description" content="本文章都是建立在Winodws平台下测试的，其他平台是否同样适用还未进行验证。TE框架还在更新中，未来可能有较大变动。                          TEngine: 6.1.3             前言所有的功能和代码的演示都是基于以下项目演示的，欢迎大家参考。GitHub: 基于TEngine框架实现的塔防Demo 本文章的代码也参考了下面这篇">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.meo39.com/img/tengine.png">
+<meta property="article:published_time" content="2025-10-10T04:48:39.000Z">
+<meta property="article:modified_time" content="2025-10-10T09:50:55.586Z">
+<meta property="article:author" content="daydayasobi">
+<meta property="article:tag" content="Unity">
+<meta property="article:tag" content="TEngine">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://blog.meo39.com/img/tengine.png">
+  
+  
+  
+  <title>TEngine框架学习 SQLite存档模块 - DayDayAsobi&#39;s Blog</title><meta name="robots" content="noindex">
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.meo39.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":"G-0HNFH60W0L"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-0HNFH60W0L", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-0HNFH60W0L');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<!-- hexo injector head_end start --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"a3ece72eb3ec444a8a980a10bf989b7f"}'></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>DayDayAsobi&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="TEngine框架学习 SQLite存档模块"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        daydayasobi
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-10-10 12:48" pubdate>
+          2025年10月10日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">TEngine框架学习 SQLite存档模块</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <div class="note note-warning">
+            <p>本文章都是建立在Winodws平台下测试的，其他平台是否同样适用还未进行验证。<br>TE框架还在更新中，未来可能有较大变动。</p>
+          </div>
+
+<div class="note note-info">
+            <p>TEngine: 6.1.3</p>
+          </div>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>所有的功能和代码的演示都是基于以下项目演示的，欢迎大家参考。<br>GitHub: <a target="_blank" rel="noopener" href="https://github.com/daydayasobi/TowerDefense-TEngine-Demo">基于TEngine框架实现的塔防Demo</a></p>
+<p>本文章的代码也参考了下面这篇文章<a target="_blank" rel="noopener" href="https://www.cnblogs.com/guangzhiruijie/p/15941478.html">Unity3D游戏开发之SQLite让数据库开发更简单 </a>，这篇文章很好的阐述了为什么选择SQLite和Unity中导入SQLite的基本操作，推荐大家看看。</p>
+<p>TEngine本身没有存档模块，其他大佬也有使用EasySave3插件的，这也是一个很好的选择。这里博主使用SQLite的目的很简单，对于大多数中小型项目，SQLite足够了，主打的就是为一个成熟可靠。</p>
+<h2 id="DLL下载和引入"><a href="#DLL下载和引入" class="headerlink" title="DLL下载和引入"></a>DLL下载和引入</h2><p>需要三个DLL，分别是：</p>
+<ul>
+<li>sqlite3.dll</li>
+<li>Mono.Data.Sqlite.dll</li>
+<li>System.Data.dll</li>
+</ul>
+<p>sqlite3.dll可以从<a target="_blank" rel="noopener" href="https://www.sqlite.org/index.html">SQLite官方网站</a>下载，可以根据需要下载相应的平台，如果是多平台开发则会有复数个。</p>
+<p>为了能在Unity中使用SQLite，除了DLL文件外，我们还需要System.Data.dll和Mono.Data.Sqlite.dll这两个动态链接库，这两个链接库在unity的安装目录里找到，这里给一个参考链接：</p>
+<figure class="highlight moonscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs moonscript"><span class="hljs-name">C</span>:\xxx\Unity\Hub\Editor\<span class="hljs-number">2022.</span>xxx\Editor\Data\MonoBleedingEdge\lib\mono\unityjit-win32<br></code></pre></td></tr></table></figure>
+
+
+
+<p>将上面的的DLL放入Plugins即可。</p>
+<p><img src="https://blogimage01.oss-cn-chengdu.aliyuncs.com/img/202510101710887.png" srcset="/img/loading.gif" lazyload alt="文件夹构造"></p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>总共三个脚本即可，分别是<code>SQLiteHelper</code>、<code>ISaveModule</code>、<code>SaveModule</code>，其中<code>SQLiteHelper</code>脚本是SQLite增删改查和链接数据库的实现，<code>ISaveModule</code>定义了Module的接口，<code>SaveModule</code>是实现具体的方法。其中<code>ISaveModule</code>还包含PlayerPrefs的封装。</p>
+
+    <div class="fold">
+      <div class="fold-title fold-`SQLiteHelper` collapsed" data-toggle="collapse" href="#collapse-28ab9646" role="button" aria-expanded="false" aria-controls="collapse-28ab9646">
+        <div class="fold-arrow">▶</div>SQLiteHelper脚本
+      </div>
+      <div class="fold-collapse collapse" id="collapse-28ab9646">
+        <div class="fold-content">
+          <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">using</span> System.Collections;<br><span class="hljs-keyword">using</span> System.Collections.Generic;<br><span class="hljs-keyword">using</span> UnityEngine;<br><span class="hljs-keyword">using</span> UnityEngine;<br><span class="hljs-keyword">using</span> System.Collections;<br><span class="hljs-keyword">using</span> Mono.Data.Sqlite;<br><span class="hljs-keyword">using</span> System;<br><br><span class="hljs-keyword">namespace</span> <span class="hljs-title">TEngine</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">SQLiteHelper</span><br>    &#123;<br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> 数据库连接定义</span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>        <span class="hljs-keyword">private</span> SqliteConnection dbConnection;<br><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> SQL命令定义</span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>        <span class="hljs-keyword">private</span> SqliteCommand dbCommand;<br><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> 数据读取定义</span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>        <span class="hljs-keyword">private</span> SqliteDataReader dataReader;<br><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> 构造函数   </span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;connectionString&quot;&gt;</span>数据库连接字符串<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SQLiteHelper</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> connectionString</span>)</span><br>        &#123;<br>            <span class="hljs-keyword">try</span><br>            &#123;<br>                <span class="hljs-comment">//构造数据库连接</span><br>                dbConnection = <span class="hljs-keyword">new</span> SqliteConnection(connectionString);<br>                <span class="hljs-comment">//打开数据库</span><br>                dbConnection.Open();<br>            &#125;<br>            <span class="hljs-keyword">catch</span> (Exception e)<br>            &#123;<br>                Debug.Log(e.Message);<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> 执行SQL命令</span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;returns&gt;</span>The query.<span class="hljs-doctag">&lt;/returns&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;queryString&quot;&gt;</span>SQL命令字符串<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> SqliteDataReader <span class="hljs-title">ExecuteQuery</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> queryString</span>)</span><br>        &#123;<br>            dbCommand = dbConnection.CreateCommand();<br>            dbCommand.CommandText = queryString;<br>            dataReader = dbCommand.ExecuteReader();<br>            <span class="hljs-keyword">return</span> dataReader;<br>        &#125;<br><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> 关闭数据库连接</span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">CloseConnection</span>()</span><br>        &#123;<br>            <span class="hljs-comment">//销毁Command</span><br>            <span class="hljs-keyword">if</span> (dbCommand != <span class="hljs-literal">null</span>)<br>            &#123;<br>                dbCommand.Cancel();<br>            &#125;<br><br>            dbCommand = <span class="hljs-literal">null</span>;<br><br>            <span class="hljs-comment">//销毁Reader</span><br>            <span class="hljs-keyword">if</span> (dataReader != <span class="hljs-literal">null</span>)<br>            &#123;<br>                dataReader.Close();<br>            &#125;<br><br>            dataReader = <span class="hljs-literal">null</span>;<br><br>            <span class="hljs-comment">//销毁Connection</span><br>            <span class="hljs-keyword">if</span> (dbConnection != <span class="hljs-literal">null</span>)<br>            &#123;<br>                dbConnection.Close();<br>            &#125;<br><br>            dbConnection = <span class="hljs-literal">null</span>;<br>        &#125;<br><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> 读取整张数据表</span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;returns&gt;</span>The full table.<span class="hljs-doctag">&lt;/returns&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;tableName&quot;&gt;</span>数据表名称<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> SqliteDataReader <span class="hljs-title">ReadFullTable</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> tableName</span>)</span><br>        &#123;<br>            <span class="hljs-built_in">string</span> queryString = <span class="hljs-string">&quot;SELECT * FROM &quot;</span> + tableName;<br>            <span class="hljs-keyword">return</span> ExecuteQuery(queryString);<br>        &#125;<br><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> 向指定数据表中插入数据</span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;returns&gt;</span>The values.<span class="hljs-doctag">&lt;/returns&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;tableName&quot;&gt;</span>数据表名称<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;values&quot;&gt;</span>插入的数值<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> SqliteDataReader <span class="hljs-title">InsertValues</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> tableName, <span class="hljs-built_in">string</span>[] values</span>)</span><br>        &#123;<br>            <span class="hljs-comment">//获取数据表中字段数目</span><br>            <span class="hljs-built_in">int</span> fieldCount = ReadFullTable(tableName).FieldCount;<br>            <span class="hljs-comment">//当插入的数据长度不等于字段数目时引发异常</span><br>            <span class="hljs-keyword">if</span> (values.Length != fieldCount)<br>            &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> SqliteException(<span class="hljs-string">&quot;values.Length!=fieldCount&quot;</span>);<br>            &#125;<br><br>            <span class="hljs-built_in">string</span> queryString = <span class="hljs-string">&quot;INSERT INTO &quot;</span> + tableName + <span class="hljs-string">&quot; VALUES (&quot;</span> + values[<span class="hljs-number">0</span>];<br>            <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>; i &lt; values.Length; i++)<br>            &#123;<br>                queryString += <span class="hljs-string">&quot;, &quot;</span> + values[i];<br>            &#125;<br><br>            queryString += <span class="hljs-string">&quot; )&quot;</span>;<br>            <span class="hljs-keyword">return</span> ExecuteQuery(queryString);<br>        &#125;<br><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> 更新指定数据表内的数据</span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;returns&gt;</span>The values.<span class="hljs-doctag">&lt;/returns&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;tableName&quot;&gt;</span>数据表名称<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;colNames&quot;&gt;</span>字段名<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;colValues&quot;&gt;</span>字段名相应的数据<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;key&quot;&gt;</span>关键字<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;value&quot;&gt;</span>关键字相应的值<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> SqliteDataReader <span class="hljs-title">UpdateValues</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> tableName, <span class="hljs-built_in">string</span>[] colNames, <span class="hljs-built_in">string</span>[] colValues, <span class="hljs-built_in">string</span> key, <span class="hljs-built_in">string</span> operation, <span class="hljs-built_in">string</span> <span class="hljs-keyword">value</span></span>)</span><br>        &#123;<br>            <span class="hljs-comment">//当字段名称和字段数值不正确应时引发异常</span><br>            <span class="hljs-keyword">if</span> (colNames.Length != colValues.Length)<br>            &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> SqliteException(<span class="hljs-string">&quot;colNames.Length!=colValues.Length&quot;</span>);<br>            &#125;<br><br>            <span class="hljs-built_in">string</span> queryString = <span class="hljs-string">&quot;UPDATE &quot;</span> + tableName + <span class="hljs-string">&quot; SET &quot;</span> + colNames[<span class="hljs-number">0</span>] + <span class="hljs-string">&quot;=&quot;</span> + colValues[<span class="hljs-number">0</span>];<br>            <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>; i &lt; colValues.Length; i++)<br>            &#123;<br>                queryString += <span class="hljs-string">&quot;, &quot;</span> + colNames[i] + <span class="hljs-string">&quot;=&quot;</span> + colValues[i];<br>            &#125;<br><br>            queryString += <span class="hljs-string">&quot; WHERE &quot;</span> + key + operation + <span class="hljs-keyword">value</span>;<br>            <span class="hljs-keyword">return</span> ExecuteQuery(queryString);<br>        &#125;<br><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> 删除指定数据表内的数据</span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;returns&gt;</span>The values.<span class="hljs-doctag">&lt;/returns&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;tableName&quot;&gt;</span>数据表名称<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;colNames&quot;&gt;</span>字段名<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;colValues&quot;&gt;</span>字段名相应的数据<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> SqliteDataReader <span class="hljs-title">DeleteValuesOR</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> tableName, <span class="hljs-built_in">string</span>[] colNames, <span class="hljs-built_in">string</span>[] operations, <span class="hljs-built_in">string</span>[] colValues</span>)</span><br>        &#123;<br>            <span class="hljs-comment">//当字段名称和字段数值不正确应时引发异常</span><br>            <span class="hljs-keyword">if</span> (colNames.Length != colValues.Length || operations.Length != colNames.Length || operations.Length != colValues.Length)<br>            &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> SqliteException(<span class="hljs-string">&quot;colNames.Length!=colValues.Length || operations.Length!=colNames.Length || operations.Length!=colValues.Length&quot;</span>);<br>            &#125;<br><br>            <span class="hljs-built_in">string</span> queryString = <span class="hljs-string">&quot;DELETE FROM &quot;</span> + tableName + <span class="hljs-string">&quot; WHERE &quot;</span> + colNames[<span class="hljs-number">0</span>] + operations[<span class="hljs-number">0</span>] + colValues[<span class="hljs-number">0</span>];<br>            <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>; i &lt; colValues.Length; i++)<br>            &#123;<br>                queryString += <span class="hljs-string">&quot;OR &quot;</span> + colNames[i] + operations[<span class="hljs-number">0</span>] + colValues[i];<br>            &#125;<br><br>            <span class="hljs-keyword">return</span> ExecuteQuery(queryString);<br>        &#125;<br><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> 删除指定数据表内的数据</span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;returns&gt;</span>The values.<span class="hljs-doctag">&lt;/returns&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;tableName&quot;&gt;</span>数据表名称<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;colNames&quot;&gt;</span>字段名<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;colValues&quot;&gt;</span>字段名相应的数据<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> SqliteDataReader <span class="hljs-title">DeleteValuesAND</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> tableName, <span class="hljs-built_in">string</span>[] colNames, <span class="hljs-built_in">string</span>[] operations, <span class="hljs-built_in">string</span>[] colValues</span>)</span><br>        &#123;<br>            <span class="hljs-comment">//当字段名称和字段数值不正确应时引发异常</span><br>            <span class="hljs-keyword">if</span> (colNames.Length != colValues.Length || operations.Length != colNames.Length || operations.Length != colValues.Length)<br>            &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> SqliteException(<span class="hljs-string">&quot;colNames.Length!=colValues.Length || operations.Length!=colNames.Length || operations.Length!=colValues.Length&quot;</span>);<br>            &#125;<br><br>            <span class="hljs-built_in">string</span> queryString = <span class="hljs-string">&quot;DELETE FROM &quot;</span> + tableName + <span class="hljs-string">&quot; WHERE &quot;</span> + colNames[<span class="hljs-number">0</span>] + operations[<span class="hljs-number">0</span>] + colValues[<span class="hljs-number">0</span>];<br>            <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>; i &lt; colValues.Length; i++)<br>            &#123;<br>                queryString += <span class="hljs-string">&quot; AND &quot;</span> + colNames[i] + operations[i] + colValues[i];<br>            &#125;<br><br>            <span class="hljs-keyword">return</span> ExecuteQuery(queryString);<br>        &#125;<br><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> 创建数据表</span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span> +</span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;returns&gt;</span>The table.<span class="hljs-doctag">&lt;/returns&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;tableName&quot;&gt;</span>数据表名<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;colNames&quot;&gt;</span>字段名<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;colTypes&quot;&gt;</span>字段名类型<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> SqliteDataReader <span class="hljs-title">CreateTable</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> tableName, <span class="hljs-built_in">string</span>[] colNames, <span class="hljs-built_in">string</span>[] colTypes</span>)</span><br>        &#123;<br>            <span class="hljs-built_in">string</span> queryString = <span class="hljs-string">&quot;CREATE TABLE &quot;</span> + tableName + <span class="hljs-string">&quot;( &quot;</span> + colNames[<span class="hljs-number">0</span>] + <span class="hljs-string">&quot; &quot;</span> + colTypes[<span class="hljs-number">0</span>];<br>            <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>; i &lt; colNames.Length; i++)<br>            &#123;<br>                queryString += <span class="hljs-string">&quot;, &quot;</span> + colNames[i] + <span class="hljs-string">&quot; &quot;</span> + colTypes[i];<br>            &#125;<br><br>            queryString += <span class="hljs-string">&quot;  ) &quot;</span>;<br>            <span class="hljs-keyword">return</span> ExecuteQuery(queryString);<br>        &#125;<br><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> Reads the table.</span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;returns&gt;</span>The table.<span class="hljs-doctag">&lt;/returns&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;tableName&quot;&gt;</span>Table name.<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;items&quot;&gt;</span>Items.<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;colNames&quot;&gt;</span>Col names.<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;operations&quot;&gt;</span>Operations.<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;colValues&quot;&gt;</span>Col values.<span class="hljs-doctag">&lt;/param&gt;</span></span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> SqliteDataReader <span class="hljs-title">ReadTable</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> tableName, <span class="hljs-built_in">string</span>[] items, <span class="hljs-built_in">string</span>[] colNames, <span class="hljs-built_in">string</span>[] operations, <span class="hljs-built_in">string</span>[] colValues</span>)</span><br>        &#123;<br>            <span class="hljs-built_in">string</span> queryString = <span class="hljs-string">&quot;SELECT &quot;</span> + items[<span class="hljs-number">0</span>];<br>            <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>; i &lt; items.Length; i++)<br>            &#123;<br>                queryString += <span class="hljs-string">&quot;, &quot;</span> + items[i];<br>            &#125;<br><br>            queryString += <span class="hljs-string">&quot; FROM &quot;</span> + tableName + <span class="hljs-string">&quot; WHERE &quot;</span> + colNames[<span class="hljs-number">0</span>] + <span class="hljs-string">&quot; &quot;</span> + operations[<span class="hljs-number">0</span>] + <span class="hljs-string">&quot; &quot;</span> + colValues[<span class="hljs-number">0</span>];<br>            <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; colNames.Length; i++)<br>            &#123;<br>                queryString += <span class="hljs-string">&quot; AND &quot;</span> + colNames[i] + <span class="hljs-string">&quot; &quot;</span> + operations[i] + <span class="hljs-string">&quot; &quot;</span> + colValues[<span class="hljs-number">0</span>] + <span class="hljs-string">&quot; &quot;</span>;<br>            &#125;<br><br>            <span class="hljs-keyword">return</span> ExecuteQuery(queryString);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="fold">
+      <div class="fold-title fold-`SaveModule`模块和对应的接口 collapsed" data-toggle="collapse" href="#collapse-2b717312" role="button" aria-expanded="false" aria-controls="collapse-2b717312">
+        <div class="fold-arrow">▶</div>SaveModule脚本和对应的接口
+      </div>
+      <div class="fold-collapse collapse" id="collapse-2b717312">
+        <div class="fold-content">
+          <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">using</span> System.Collections;<br><span class="hljs-keyword">using</span> System.Collections.Generic;<br><span class="hljs-keyword">using</span> UnityEngine;<br><br><span class="hljs-keyword">namespace</span> <span class="hljs-title">TEngine</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">ISaveModule</span><br>    &#123;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">RemoveAllKey</span>()</span>;<br>        <br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">GetInt</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">int</span> defaultValue = <span class="hljs-number">0</span></span>)</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">float</span> <span class="hljs-title">GetFloat</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">float</span> defaultValue</span>)</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> <span class="hljs-title">GetString</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">string</span> defaultValue</span>)</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">GetBool</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">bool</span> defaultValue</span>)</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetInt</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">int</span> <span class="hljs-keyword">value</span></span>)</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetFloat</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">float</span> <span class="hljs-keyword">value</span></span>)</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetString</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">string</span> <span class="hljs-keyword">value</span></span>)</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetBool</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">bool</span> <span class="hljs-keyword">value</span></span>)</span>;<br>        <br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">RemoveKey</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key</span>)</span>;<br>        <br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">GetIntLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">int</span> defaultValue = <span class="hljs-number">0</span></span>)</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">float</span> <span class="hljs-title">GetFloatLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">float</span> defaultValue</span>)</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> <span class="hljs-title">GetStringLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">string</span> defaultValue</span>)</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">GetBoolLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">bool</span> defaultValue</span>)</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetIntLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">int</span> <span class="hljs-keyword">value</span></span>)</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetFloatLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">float</span> <span class="hljs-keyword">value</span></span>)</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetStringLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">string</span> <span class="hljs-keyword">value</span></span>)</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetBoolLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">bool</span> <span class="hljs-keyword">value</span></span>)</span>;<br>        <br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">RemoveKeyLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key</span>)</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">using</span> System.Collections;<br><span class="hljs-keyword">using</span> System.Collections.Generic;<br><span class="hljs-keyword">using</span> UnityEngine;<br><br><span class="hljs-keyword">namespace</span> <span class="hljs-title">TEngine</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">SaveModule</span> : <span class="hljs-title">Module</span>, <span class="hljs-title">ISaveModule</span><br>    &#123;<br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> SQLite数据库辅助类</span><br>        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>        <span class="hljs-keyword">private</span> SQLiteHelper sql;<br>        <br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnInit</span>()</span><br>        &#123;<br>            <span class="hljs-built_in">string</span> dbPath = <span class="hljs-string">&quot;URI=file:&quot;</span> + Application.persistentDataPath + <span class="hljs-string">&quot;/save.db&quot;</span>;<br>            sql = <span class="hljs-keyword">new</span> SQLiteHelper(dbPath);<br><br>            <span class="hljs-comment">// 检查是否存在表</span><br>            <span class="hljs-keyword">var</span> reader = sql.ExecuteQuery(<span class="hljs-string">&quot;SELECT name FROM sqlite_master WHERE type=&#x27;table&#x27; AND name=&#x27;SaveTable&#x27;;&quot;</span>);<br>            <span class="hljs-keyword">if</span> (!reader.HasRows)<br>            &#123;<br>                sql.CreateTable(<br>                    <span class="hljs-string">&quot;SaveTable&quot;</span>,<br>                    <span class="hljs-keyword">new</span> <span class="hljs-built_in">string</span>[] &#123; <span class="hljs-string">&quot;Key&quot;</span>, <span class="hljs-string">&quot;Value&quot;</span>, <span class="hljs-string">&quot;Type&quot;</span> &#125;,<br>                    <span class="hljs-keyword">new</span> <span class="hljs-built_in">string</span>[] &#123; <span class="hljs-string">&quot;TEXT PRIMARY KEY&quot;</span>, <span class="hljs-string">&quot;TEXT&quot;</span>, <span class="hljs-string">&quot;TEXT&quot;</span> &#125;<br>                );<br>                Debug.Log(<span class="hljs-string">&quot;✅ 创建数据表 SaveTable 成功&quot;</span>);<br>            &#125;<br>            <span class="hljs-keyword">else</span><br>            &#123;<br>                Debug.Log(<span class="hljs-string">&quot;✅ 数据表 SaveTable 已存在，跳过创建&quot;</span>);<br>            &#125;<br>            reader.Close();<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Shutdown</span>()</span><br>        &#123;<br>            <span class="hljs-keyword">if</span> (sql != <span class="hljs-literal">null</span>)<br>            &#123;<br>                sql.CloseConnection();<br>                sql = <span class="hljs-literal">null</span>;<br>            &#125;<br>        &#125;<br>        <br>        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetValue</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">string</span> <span class="hljs-keyword">value</span>, <span class="hljs-built_in">string</span> type</span>)</span><br>        &#123;<br>            <span class="hljs-comment">// 先检查是否存在</span><br>            <span class="hljs-keyword">var</span> reader = sql.ExecuteQuery(<span class="hljs-string">$&quot;SELECT key FROM SaveTable WHERE key=&#x27;<span class="hljs-subst">&#123;key&#125;</span>&#x27;&quot;</span>);<br>            <span class="hljs-built_in">bool</span> exists = reader.Read();<br>            reader.Close();<br><br>            <span class="hljs-keyword">if</span> (exists)<br>            &#123;<br>                sql.ExecuteQuery(<span class="hljs-string">$&quot;UPDATE SaveTable SET value=&#x27;<span class="hljs-subst">&#123;<span class="hljs-keyword">value</span>&#125;</span>&#x27;, type=&#x27;<span class="hljs-subst">&#123;type&#125;</span>&#x27; WHERE key=&#x27;<span class="hljs-subst">&#123;key&#125;</span>&#x27;&quot;</span>);<br>            &#125;<br>            <span class="hljs-keyword">else</span><br>            &#123;<br>                sql.ExecuteQuery(<span class="hljs-string">$&quot;INSERT INTO SaveTable (key, value, type) VALUES (&#x27;<span class="hljs-subst">&#123;key&#125;</span>&#x27;, &#x27;<span class="hljs-subst">&#123;<span class="hljs-keyword">value</span>&#125;</span>&#x27;, &#x27;<span class="hljs-subst">&#123;type&#125;</span>&#x27;)&quot;</span>);<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-built_in">string</span> <span class="hljs-title">GetValue</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key</span>)</span><br>        &#123;<br>            <span class="hljs-keyword">var</span> reader = sql.ExecuteQuery(<span class="hljs-string">$&quot;SELECT value FROM SaveTable WHERE key=&#x27;<span class="hljs-subst">&#123;key&#125;</span>&#x27;&quot;</span>);<br>            <span class="hljs-built_in">string</span> result = <span class="hljs-literal">null</span>;<br>            <span class="hljs-keyword">if</span> (reader.Read())<br>            &#123;<br>                result = reader[<span class="hljs-string">&quot;value&quot;</span>].ToString();<br>            &#125;<br>            reader.Close();<br>            <span class="hljs-keyword">return</span> result;<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">RemoveAllKey</span>()</span><br>        &#123;<br>            <span class="hljs-comment">// 清空数据库</span><br>            sql.ExecuteQuery(<span class="hljs-string">&quot;DELETE FROM SaveTable&quot;</span>);<br><br>            <span class="hljs-comment">// 清空 PlayerPrefs</span><br>            PlayerPrefs.DeleteAll();<br>            PlayerPrefs.Save();<br>        &#125;<br>        <br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">GetInt</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">int</span> defaultValue = <span class="hljs-number">0</span></span>)</span><br>        &#123;<br>            <span class="hljs-built_in">string</span> v = GetValue(key);<br>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">int</span>.TryParse(v, <span class="hljs-keyword">out</span> <span class="hljs-built_in">int</span> result)) <span class="hljs-keyword">return</span> result;<br>            <span class="hljs-keyword">return</span> defaultValue;<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">float</span> <span class="hljs-title">GetFloat</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">float</span> defaultValue = <span class="hljs-number">0</span></span>)</span><br>        &#123;<br>            <span class="hljs-built_in">string</span> v = GetValue(key);<br>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">float</span>.TryParse(v, <span class="hljs-keyword">out</span> <span class="hljs-built_in">float</span> result)) <span class="hljs-keyword">return</span> result;<br>            <span class="hljs-keyword">return</span> defaultValue;<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> <span class="hljs-title">GetString</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">string</span> defaultValue = <span class="hljs-literal">null</span></span>)</span><br>        &#123;<br>            <span class="hljs-built_in">string</span> v = GetValue(key);<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">string</span>.IsNullOrEmpty(v) ? defaultValue : v;<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">GetBool</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">bool</span> defaultValue = <span class="hljs-literal">false</span></span>)</span><br>        &#123;<br>            <span class="hljs-built_in">string</span> v = GetValue(key);<br>            <span class="hljs-keyword">if</span> (v == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> defaultValue;<br>            <span class="hljs-keyword">return</span> v == <span class="hljs-string">&quot;1&quot;</span> || v.ToLower() == <span class="hljs-string">&quot;true&quot;</span>;<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetInt</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">int</span> <span class="hljs-keyword">value</span></span>)</span><br>        &#123;<br>            SetValue(key, <span class="hljs-keyword">value</span>.ToString(), <span class="hljs-string">&quot;int&quot;</span>);<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetFloat</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">float</span> <span class="hljs-keyword">value</span></span>)</span><br>        &#123;<br>            SetValue(key, <span class="hljs-keyword">value</span>.ToString(), <span class="hljs-string">&quot;float&quot;</span>);<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetString</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">string</span> <span class="hljs-keyword">value</span></span>)</span><br>        &#123;<br>            SetValue(key, <span class="hljs-keyword">value</span>, <span class="hljs-string">&quot;string&quot;</span>);<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetBool</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">bool</span> <span class="hljs-keyword">value</span></span>)</span><br>        &#123;<br>            SetValue(key, <span class="hljs-keyword">value</span> ? <span class="hljs-string">&quot;1&quot;</span> : <span class="hljs-string">&quot;0&quot;</span>, <span class="hljs-string">&quot;bool&quot;</span>);<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">RemoveKey</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key</span>)</span><br>        &#123;<br>            sql.ExecuteQuery(<span class="hljs-string">$&quot;DELETE FROM SaveTable WHERE key=&#x27;<span class="hljs-subst">&#123;key&#125;</span>&#x27;&quot;</span>);<br>        &#125;<br><br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">GetIntLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">int</span> defaultValue = <span class="hljs-number">0</span></span>)</span><br>        &#123;<br>            <span class="hljs-keyword">return</span> PlayerPrefs.GetInt(key, defaultValue);<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">float</span> <span class="hljs-title">GetFloatLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">float</span> defaultValue = <span class="hljs-number">0</span></span>)</span><br>        &#123;<br>            <span class="hljs-keyword">return</span> PlayerPrefs.GetFloat(key, defaultValue);<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> <span class="hljs-title">GetStringLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">string</span> defaultValue = <span class="hljs-literal">null</span></span>)</span><br>        &#123;<br>            <span class="hljs-keyword">return</span> PlayerPrefs.GetString(key, defaultValue);<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">GetBoolLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">bool</span> defaultValue = <span class="hljs-literal">false</span></span>)</span><br>        &#123;<br>            <span class="hljs-keyword">return</span> PlayerPrefs.GetInt(key, defaultValue ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>) == <span class="hljs-number">1</span>;<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetIntLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">int</span> <span class="hljs-keyword">value</span> = <span class="hljs-number">0</span></span>)</span><br>        &#123;<br>            PlayerPrefs.SetInt(key, <span class="hljs-keyword">value</span>);<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetFloatLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">float</span> <span class="hljs-keyword">value</span> = <span class="hljs-number">0</span></span>)</span><br>        &#123;<br>            PlayerPrefs.SetFloat(key, <span class="hljs-keyword">value</span>);<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetStringLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">string</span> <span class="hljs-keyword">value</span> = <span class="hljs-literal">null</span></span>)</span><br>        &#123;<br>            PlayerPrefs.SetString(key, <span class="hljs-keyword">value</span>);<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetBoolLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key, <span class="hljs-built_in">bool</span> <span class="hljs-keyword">value</span> = <span class="hljs-literal">false</span></span>)</span><br>        &#123;<br>            PlayerPrefs.SetInt(key, <span class="hljs-keyword">value</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>);<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">RemoveKeyLocal</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> key</span>)</span><br>        &#123;<br>            PlayerPrefs.DeleteKey(key);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="fold">
+      <div class="fold-title fold-`SaveModule`模块的接入和调用 collapsed" data-toggle="collapse" href="#collapse-850d6ddb" role="button" aria-expanded="false" aria-controls="collapse-850d6ddb">
+        <div class="fold-arrow">▶</div>SaveModule模块的接入和调用
+      </div>
+      <div class="fold-collapse collapse" id="collapse-850d6ddb">
+        <div class="fold-content">
+          <p>在<code>GameModule</code>脚本中仿照其他模块接入，Shutdown中同样要记得清除。</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> 获取存档模块</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ISaveModule Save =&gt; _save ??= Get&lt;ISaveModule&gt;();<br><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> ISaveModule _save;<br><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Shutdown</span>()</span><br>&#123;<br>    Log.Info(<span class="hljs-string">&quot;GameModule Shutdown&quot;</span>);<br><br>    _base = <span class="hljs-literal">null</span>;<br>    _debugger = <span class="hljs-literal">null</span>;<br>    _fsm = <span class="hljs-literal">null</span>;<br>    _procedure = <span class="hljs-literal">null</span>;<br>    _resource = <span class="hljs-literal">null</span>;<br>    _audio = <span class="hljs-literal">null</span>;<br>    _ui = <span class="hljs-literal">null</span>;<br>    _scene = <span class="hljs-literal">null</span>;<br>    _timer = <span class="hljs-literal">null</span>;<br>    _localization = <span class="hljs-literal">null</span>;<br>    _entity = <span class="hljs-literal">null</span>;<br>    _save = <span class="hljs-literal">null</span>;	<span class="hljs-comment">// Shutdown中要调用清除</span><br><br>    Application.Quit();<br><span class="hljs-meta">#<span class="hljs-keyword">if</span> UNITY_EDITOR</span><br>    UnityEditor.EditorApplication.isPlaying = <span class="hljs-literal">false</span>;<br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br>    <span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure><p>下面的例子中有SQLite</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-comment">// 使用PlayerPrefs存储和读取数据</span><br>GameModule.Save.SetIntLocal(<span class="hljs-string">&quot;TestKey&quot;</span>, <span class="hljs-number">100</span>);<br><span class="hljs-built_in">int</span> test = GameModule.Save.GetIntLocal(<span class="hljs-string">&quot;TestKey&quot;</span>);<br><br><span class="hljs-comment">// 使用SQLite存储和读取数据</span><br>GameModule.Save.SetIntLocal(<span class="hljs-string">&quot;TestKey2&quot;</span>, <span class="hljs-number">100</span>);<br><span class="hljs-built_in">int</span> test2 = GameModule.Save.GetIntLocal(<span class="hljs-string">&quot;TestKey2&quot;</span>);<br></code></pre></td></tr></table></figure>
+        </div>
+      </div>
+    </div>
+<!-- flag of hidden posts -->
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Unity/" class="print-no-link">#Unity</a>
+      
+        <a href="/tags/TEngine/" class="print-no-link">#TEngine</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>TEngine框架学习 SQLite存档模块</div>
+      <div>https://blog.meo39.com/2025/10/10/TEngineLean5/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>daydayasobi</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年10月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"Ov23liJNn88Oa4cCchJr","clientSecret":"bedf7ca410c6c42d4b51724427fb09dfa4ab6dce","repo":"daydayasobi.github.io","owner":"daydayasobi","admin":["daydayasobi"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: 'e20d57e6efb2dc4851ed64f3968a026f'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
